@@ -1,36 +1,71 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Life Plan Simulation
+
+A web application for simulating future asset formation and cash flow based on family structure, income, expenses, and financial parameters.
+
+## Features
+
+- **Family Management**: Manage family members (self, partner, and children)
+- **Child Education Planning**: Set education plans for each child (kindergarten through university)
+- **Activity Management**: Track extracurricular activities with costs and duration
+- **Settings Configuration**: Configure family settings, income, expenses, and financial parameters
+
+## Tech Stack
+
+- **Framework**: Next.js 16
+- **Language**: TypeScript 5
+- **Testing**: Vitest 4.0.8 + React Testing Library
+- **Package Manager**: [Bun](https://bun.sh)
+- **Architecture**: Feature-Sliced Design (FSD)
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- [Bun](https://bun.sh) (recommended) or Node.js 18+
+
+### Installation
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
+# Install dependencies
+bun install
+```
+
+### Development
+
+```bash
+# Start development server
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+This project follows [Feature-Sliced Design](https://feature-sliced.design/) architecture:
 
-## Learn More
+```
+src/
+├── app/          # App Layer - Next.js routing
+├── pages/         # Pages Layer - Page components
+├── widgets/       # Widgets Layer - Composite UI blocks
+├── features/      # Features Layer - User features
+├── entities/      # Entities Layer - Business entities
+└── shared/        # Shared Layer - Common utilities and components
+```
 
-To learn more about Next.js, take a look at the following resources:
+For more details about the architecture, see [src/README.md](./src/README.md).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Code Quality
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+This project uses:
 
-## Deploy on Vercel
+- **ESLint** for code linting
+- **Prettier** for code formatting
+- **Husky** for git hooks
+- **Commitlint** for commit message validation
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Pre-commit hooks automatically run linting and formatting checks.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## License
+
+Private project - All rights reserved

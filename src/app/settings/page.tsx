@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description: 'Configure settings for life plan simulation',
 };
 
-const SettingsIndexPage = (): JSX.Element => {
+const SettingsIndexPage = () => {
   return <SettingsPage />;
 };
 

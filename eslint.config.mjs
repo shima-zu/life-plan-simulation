@@ -45,6 +45,13 @@ const eslintConfig = defineConfig([
       eqeqeq: ['error', 'always'],
       'no-duplicate-imports': 'error',
 
+      // Enforce arrow functions
+      'prefer-arrow-callback': 'error',
+      'func-style': ['error', 'expression', { allowArrowFunctions: true }],
+
+      // Enforce type over interface
+      '@typescript-eslint/consistent-type-definitions': ['error', 'type'],
+
       // React specific
       'react/jsx-no-target-blank': 'error',
       'react/no-array-index-key': 'warn',

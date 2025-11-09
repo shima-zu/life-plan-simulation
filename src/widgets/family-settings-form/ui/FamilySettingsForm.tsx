@@ -3,8 +3,8 @@
 import { useFamilyForm } from '../model/useFamilyForm';
 import { FamilyMemberCard } from '@/features/edit-family-member/ui/FamilyMemberCard';
 
-export const FamilySettingsForm = (): JSX.Element => {
-  const { self, spouse, isLoading, handleSaveMember } = useFamilyForm();
+export const FamilySettingsForm = () => {
+  const { self, partner, isLoading, handleSaveMember } = useFamilyForm();
 
   if (isLoading) {
     return (
@@ -23,10 +23,10 @@ export const FamilySettingsForm = (): JSX.Element => {
         roleLabel="Self"
       />
       <FamilyMemberCard
-        role="spouse"
-        member={spouse}
+        role="partner"
+        member={partner}
         onSave={handleSaveMember}
-        roleLabel="Spouse"
+        roleLabel="Partner"
       />
     </div>
   );

@@ -5,13 +5,13 @@ import type { FamilyMember } from '@/entities/family/model/types';
 
 export const useFamilyForm = (): {
   self: FamilyMember | undefined;
-  spouse: FamilyMember | undefined;
+  partner: FamilyMember | undefined;
   isLoading: boolean;
   handleSaveMember: (memberData: Omit<FamilyMember, 'id'>) => void;
 } => {
   const { isLoading, addMember, updateMember, getMember } = useFamilyData();
 
-  const handleSaveMember = (memberData: Omit<FamilyMember, 'id'>): void => {
+  const handleSaveMember = (memberData: Omit<FamilyMember, 'id'>) => {
     const existing = getMember(memberData.role);
 
     if (existing) {
@@ -23,7 +23,7 @@ export const useFamilyForm = (): {
 
   return {
     self: getMember('self'),
-    spouse: getMember('spouse'),
+    partner: getMember('partner'),
     isLoading,
     handleSaveMember,
   };

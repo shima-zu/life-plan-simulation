@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, JSX } from 'react';
+import { useState } from 'react';
 import type { Activity } from '@/entities/family/model/types';
 import { Input } from '@/shared/ui/Input';
 import { Button } from '@/shared/ui/Button';
@@ -11,10 +11,7 @@ type ActivityListProps = {
   onChange: (activities: Activity[]) => void;
 };
 
-export const ActivityList = ({
-  activities,
-  onChange,
-}: ActivityListProps): JSX.Element => {
+export const ActivityList = ({ activities, onChange }: ActivityListProps) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [editingActivity, setEditingActivity] = useState<Activity | null>(null);
   const [formData, setFormData] = useState<Omit<Activity, 'id'>>({

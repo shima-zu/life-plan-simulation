@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, JSX } from 'react';
+import { useState, useEffect } from 'react';
 import type { FamilyMember, FamilyRole } from '@/entities/family/model/types';
 import { Card } from '@/shared/ui/Card';
 import { Input } from '@/shared/ui/Input';
@@ -18,7 +18,7 @@ export const FamilyMemberCard = ({
   member,
   onSave,
   roleLabel,
-}: FamilyMemberCardProps): JSX.Element => {
+}: FamilyMemberCardProps) => {
   const [name, setName] = useState(member?.name || '');
   const [birthDate, setBirthDate] = useState(member?.birthDate || '');
   const [errors, setErrors] = useState<{ name?: string; birthDate?: string }>(

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, JSX } from 'react';
+import { useState, useEffect } from 'react';
 import type {
   FamilyMember,
   EducationPlan,
@@ -33,11 +33,7 @@ const UNIVERSITY_TYPE_OPTIONS = [
   { value: 'private-science', label: 'Private (Science)' },
 ];
 
-export const ChildForm = ({
-  child,
-  onSave,
-  onDelete,
-}: ChildFormProps): JSX.Element => {
+export const ChildForm = ({ child, onSave, onDelete }: ChildFormProps) => {
   const [name, setName] = useState(child?.name || '');
   const [birthDate, setBirthDate] = useState(child?.birthDate || '');
   const [educationPlan, setEducationPlan] = useState<EducationPlan>(

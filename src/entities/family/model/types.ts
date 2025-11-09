@@ -1,4 +1,4 @@
-export type FamilyRole = 'self' | 'spouse' | 'child';
+export type FamilyRole = 'self' | 'partner' | 'child';
 
 // Education types
 export type SchoolType = 'public' | 'private';

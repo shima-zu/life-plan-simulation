@@ -1,12 +1,12 @@
 'use client';
 
-import { useState, useMemo, useEffect, useRef, JSX } from 'react';
+import { useState, useMemo, useEffect, useRef } from 'react';
 import { useFamilyData } from '@/entities/family/model/store';
 import { ChildForm } from '@/features/edit-child/ui/ChildForm';
 import { Button } from '@/shared/ui/Button';
 import { Dialog } from '@/shared/ui/Dialog';
 
-export const ChildrenList = (): JSX.Element => {
+export const ChildrenList = () => {
   const { familyData, addMember, updateMember, removeMember } = useFamilyData();
   const children = useMemo(
     () => familyData.members.filter((member) => member.role === 'child'),

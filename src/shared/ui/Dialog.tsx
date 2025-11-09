@@ -23,7 +23,7 @@ export const Dialog = ({
   cancelLabel = 'Cancel',
   onConfirm,
   showCancel = true,
-}: DialogProps): JSX.Element | null => {
+}: DialogProps) => {
   if (!isOpen) return null;
 
   const handleConfirm = (): void => {

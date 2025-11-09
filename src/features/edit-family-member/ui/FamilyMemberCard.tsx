@@ -21,20 +21,27 @@ export const FamilyMemberCard = ({
 }: FamilyMemberCardProps) => {
   const [name, setName] = useState(member?.name || '');
   const [birthDate, setBirthDate] = useState(member?.birthDate || '');
-  const [errors, setErrors] = useState<{ name?: string; birthDate?: string }>(
-    {},
+  const [initialIncome, setInitialIncome] = useState(
+    member?.initialIncome?.toString() || '',
   );
+  const [errors, setErrors] = useState<{
+    name?: string;
+    birthDate?: string;
+    initialIncome?: string;
+  }>({});
 
   useEffect(() => {
     if (member) {
       setName(member.name);
       setBirthDate(member.birthDate);
+      setInitialIncome(member.initialIncome?.toString() || '');
     } else {
       setName('');
       setBirthDate('');
+      setInitialIncome('');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [member?.id, member?.name, member?.birthDate]);
+  }, [member?.id, member?.name, member?.birthDate, member?.initialIncome]);
 
   const validate = (): boolean => {
     const newErrors: { name?: string; birthDate?: string } = {};
@@ -60,10 +67,16 @@ export const FamilyMemberCard = ({
   const handleSave = (): void => {
     if (!validate()) return;
 
+    const incomeValue = initialIncome.trim()
+      ? parseInt(initialIncome.replace(/[^0-9]/g, ''), 10)
+      : undefined;
+
     onSave({
       name: name.trim(),
       birthDate,
       role,
+      initialIncome:
+        incomeValue && !isNaN(incomeValue) ? incomeValue : undefined,
     });
   };
 
@@ -89,6 +102,19 @@ export const FamilyMemberCard = ({
           />
           {birthDate && <AgeDisplay birthDate={birthDate} className="mt-1" />}
         </div>
+
+        <Input
+          label="Initial Annual Income (万円)"
+          type="text"
+          inputMode="numeric"
+          value={initialIncome}
+          onChange={(e) => {
+            const value = e.target.value.replace(/[^0-9]/g, '');
+            setInitialIncome(value);
+          }}
+          error={errors.initialIncome}
+          placeholder="e.g., 500"
+        />
 
         <button
           onClick={handleSave}

@@ -1,18 +1,64 @@
 'use client';
 
+import { useMemo } from 'react';
 import { Card } from '@/shared/ui/Card';
 import { Button } from '@/shared/ui/Button';
 import { useAuth } from '@/shared/lib/auth-context';
 import { useFamilyData } from '@/entities/family/model/store';
+import { useIncomeData } from '@/entities/income/model/store';
 import { FamilySettingsForm } from '@/widgets/family-settings-form/ui/FamilySettingsForm';
 import { ChildrenList } from '@/widgets/children-list/ui/ChildrenList';
+import {
+  generateYearRange,
+  getBirthYear,
+} from '@/entities/income/lib/income-utils';
 
 export const SettingsPage = () => {
   const { user, loading: authLoading, signInWithGoogle } = useAuth();
   const { getMember, isLoading } = useFamilyData();
+  const { applyInitialIncome } = useIncomeData();
   const self = getMember('self');
   const partner = getMember('partner');
   const isFamilyCompleted = !!self && !!partner;
+
+  // Calculate year range for income application
+  const yearRange = useMemo(() => {
+    if (!self?.birthDate) {
+      return [];
+    }
+    const birthYear = getBirthYear(self.birthDate);
+    return generateYearRange(birthYear);
+  }, [self]);
+
+  const handleApplyInitialIncome = async () => {
+    if (!self || !partner) {
+      return;
+    }
+
+    const selfIncome = self.initialIncome ?? 0;
+    const partnerIncome = partner.initialIncome ?? 0;
+
+    if (selfIncome === 0 && partnerIncome === 0) {
+      alert('初期年収が設定されていません。');
+      return;
+    }
+
+    const confirmed = window.confirm(
+      '既に入力されている年収データも上書きされます。よろしいですか？',
+    );
+
+    if (!confirmed) {
+      return;
+    }
+
+    try {
+      await applyInitialIncome(selfIncome, partnerIncome, yearRange);
+      alert('すべての年の年収に反映しました。');
+    } catch (error) {
+      console.error('Failed to apply initial income:', error);
+      alert('年収の反映に失敗しました。');
+    }
+  };
 
   const handleSignIn = async () => {
     try {
@@ -93,6 +139,52 @@ export const SettingsPage = () => {
                 )}
               </div>
               <FamilySettingsForm />
+
+              {/* Apply Initial Income Section */}
+              {isFamilyCompleted && (
+                <div className="pt-4 border-t border-gray-200 dark:border-gray-700">
+                  <div className="space-y-3">
+                    <div>
+                      <h3 className="text-sm font-medium text-gray-900 dark:text-gray-100 mb-2">
+                        Apply Initial Income to All Years
+                      </h3>
+                      <div className="space-y-1 text-sm text-gray-600 dark:text-gray-400">
+                        {self.initialIncome !== undefined && (
+                          <div>
+                            {self.name || '自分'}: {self.initialIncome}万円
+                          </div>
+                        )}
+                        {partner.initialIncome !== undefined && (
+                          <div>
+                            {partner.name || '配偶者'}: {partner.initialIncome}
+                            万円
+                          </div>
+                        )}
+                        {(self.initialIncome === undefined ||
+                          self.initialIncome === 0) &&
+                          (partner.initialIncome === undefined ||
+                            partner.initialIncome === 0) && (
+                            <div className="text-gray-500 dark:text-gray-500">
+                              初期年収が設定されていません
+                            </div>
+                          )}
+                      </div>
+                    </div>
+                    <Button
+                      variant="primary"
+                      onClick={() => void handleApplyInitialIncome()}
+                      disabled={
+                        (self.initialIncome === undefined ||
+                          self.initialIncome === 0) &&
+                        (partner.initialIncome === undefined ||
+                          partner.initialIncome === 0)
+                      }
+                    >
+                      Apply to All Years
+                    </Button>
+                  </div>
+                </div>
+              )}
 
               {/* Children List */}
               <div className="pt-4 border-t border-gray-200 dark:border-gray-700">

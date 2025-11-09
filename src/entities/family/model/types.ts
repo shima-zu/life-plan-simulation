@@ -39,6 +39,7 @@ export type FamilyMember = {
   name: string;
   birthDate: string; // YYYY-MM-DD
   role: FamilyRole;
+  initialIncome?: number; // 初期年収（万円）
   childData?: ChildData; // only for role='child'
 };
 

@@ -2,10 +2,22 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useAuth } from '@/shared/lib/auth-context';
+import { Button } from './Button';
 
 export const Header = () => {
   const pathname = usePathname();
+  const { user, loading, logout } = useAuth();
 
+  const handleSignOut = async () => {
+    try {
+      await logout();
+    } catch (error) {
+      console.error('Failed to sign out:', error);
+    }
+  };
+
+  // Show full header when authenticated or loading
   return (
     <header className="sticky top-0 z-50 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -28,6 +40,17 @@ export const Header = () => {
             >
               Settings
             </Link>
+
+            {!loading && user && (
+              <div className="flex items-center gap-3">
+                <span className="text-sm text-gray-600 dark:text-gray-400">
+                  {user.displayName || user.email}
+                </span>
+                <Button variant="outline" onClick={() => void handleSignOut()}>
+                  Sign Out
+                </Button>
+              </div>
+            )}
           </nav>
         </div>
       </div>

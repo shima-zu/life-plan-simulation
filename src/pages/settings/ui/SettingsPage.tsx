@@ -1,15 +1,63 @@
 'use client';
 
 import { Card } from '@/shared/ui/Card';
+import { Button } from '@/shared/ui/Button';
+import { useAuth } from '@/shared/lib/auth-context';
 import { useFamilyData } from '@/entities/family/model/store';
 import { FamilySettingsForm } from '@/widgets/family-settings-form/ui/FamilySettingsForm';
 import { ChildrenList } from '@/widgets/children-list/ui/ChildrenList';
 
 export const SettingsPage = () => {
-  const { getMember } = useFamilyData();
+  const { user, loading: authLoading, signInWithGoogle } = useAuth();
+  const { getMember, isLoading } = useFamilyData();
   const self = getMember('self');
   const partner = getMember('partner');
   const isFamilyCompleted = !!self && !!partner;
+
+  const handleSignIn = async () => {
+    try {
+      await signInWithGoogle();
+    } catch (error) {
+      console.error('Failed to sign in:', error);
+    }
+  };
+
+  if (authLoading || isLoading) {
+    return (
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-6 px-4">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center py-12">
+            <p className="text-gray-600 dark:text-gray-400">Loading...</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (!user) {
+    return (
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-6 px-4">
+        <div className="max-w-4xl mx-auto">
+          <div className="mb-6">
+            <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-1">
+              Settings
+            </h1>
+          </div>
+
+          <Card title="Authentication Required">
+            <div className="space-y-4">
+              <p className="text-sm text-gray-600 dark:text-gray-400">
+                Please sign in with Google to save and manage your settings.
+              </p>
+              <Button variant="primary" onClick={() => void handleSignIn()}>
+                Sign In with Google
+              </Button>
+            </div>
+          </Card>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-6 px-4">

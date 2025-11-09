@@ -1,19 +1,24 @@
-"use client";
+'use client';
 
-import { useState, useCallback } from "react";
-import type { FamilyData, FamilyMember } from "./types";
-import {
-  getLocalStorage,
-  setLocalStorage,
-} from "@/shared/lib/local-storage";
-import { STORAGE_KEYS } from "@/shared/config/constants";
+import { useState, useCallback } from 'react';
+import type { FamilyData, FamilyMember } from './types';
+import { getLocalStorage, setLocalStorage } from '@/shared/lib/local-storage';
+import { STORAGE_KEYS } from '@/shared/config/constants';
 
 const DEFAULT_FAMILY_DATA: FamilyData = {
   members: [],
   updatedAt: new Date().toISOString(),
 };
 
-export function useFamilyData() {
+export function useFamilyData(): {
+  familyData: FamilyData;
+  isLoading: boolean;
+  addMember: (member: Omit<FamilyMember, 'id'>) => void;
+  updateMember: (id: string, updates: Partial<FamilyMember>) => void;
+  removeMember: (id: string) => void;
+  getMember: (role: FamilyMember['role']) => FamilyMember | undefined;
+  saveFamilyData: (data: FamilyData) => void;
+} {
   const [familyData, setFamilyData] = useState<FamilyData>(() => {
     const saved = getLocalStorage<FamilyData>(STORAGE_KEYS.FAMILY_DATA);
     return saved || DEFAULT_FAMILY_DATA;
@@ -32,7 +37,7 @@ export function useFamilyData() {
 
   // Add member
   const addMember = useCallback(
-    (member: Omit<FamilyMember, "id">) => {
+    (member: Omit<FamilyMember, 'id'>) => {
       const newMember: FamilyMember = {
         ...member,
         id: crypto.randomUUID(),
@@ -43,7 +48,7 @@ export function useFamilyData() {
       };
       saveFamilyData(updated);
     },
-    [familyData, saveFamilyData]
+    [familyData, saveFamilyData],
   );
 
   // Update member
@@ -52,12 +57,12 @@ export function useFamilyData() {
       const updated = {
         ...familyData,
         members: familyData.members.map((member) =>
-          member.id === id ? { ...member, ...updates } : member
+          member.id === id ? { ...member, ...updates } : member,
         ),
       };
       saveFamilyData(updated);
     },
-    [familyData, saveFamilyData]
+    [familyData, saveFamilyData],
   );
 
   // Remove member
@@ -69,15 +74,15 @@ export function useFamilyData() {
       };
       saveFamilyData(updated);
     },
-    [familyData, saveFamilyData]
+    [familyData, saveFamilyData],
   );
 
   // Get member
   const getMember = useCallback(
-    (role: FamilyMember["role"]) => {
+    (role: FamilyMember['role']) => {
       return familyData.members.find((member) => member.role === role);
     },
-    [familyData.members]
+    [familyData.members],
   );
 
   return {

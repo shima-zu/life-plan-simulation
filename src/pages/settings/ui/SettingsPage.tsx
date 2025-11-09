@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
-import { Card } from "@/shared/ui/Card";
-import { useFamilyData } from "@/entities/family/model/store";
-import { FamilySettingsForm } from "@/widgets/family-settings-form/ui/FamilySettingsForm";
+import { Card } from '@/shared/ui/Card';
+import { useFamilyData } from '@/entities/family/model/store';
+import { FamilySettingsForm } from '@/widgets/family-settings-form/ui/FamilySettingsForm';
 
-export function SettingsPage() {
+export function SettingsPage(): JSX.Element {
   const { getMember } = useFamilyData();
-  const self = getMember("self");
-  const spouse = getMember("spouse");
+  const self = getMember('self');
+  const spouse = getMember('spouse');
   const isFamilyCompleted = !!self && !!spouse;
 
   return (
@@ -60,9 +60,7 @@ export function SettingsPage() {
                 Set annual income
               </p>
               <div className="p-6 border-2 border-dashed border-gray-300 dark:border-gray-700 rounded-lg text-center">
-                <p className="text-gray-500 dark:text-gray-400">
-                  Coming soon
-                </p>
+                <p className="text-gray-500 dark:text-gray-400">Coming soon</p>
               </div>
             </div>
           </Card>
@@ -74,9 +72,7 @@ export function SettingsPage() {
                 Set expense categories
               </p>
               <div className="p-6 border-2 border-dashed border-gray-300 dark:border-gray-700 rounded-lg text-center">
-                <p className="text-gray-500 dark:text-gray-400">
-                  Coming soon
-                </p>
+                <p className="text-gray-500 dark:text-gray-400">Coming soon</p>
               </div>
             </div>
           </Card>
@@ -88,9 +84,7 @@ export function SettingsPage() {
                 Set parameters such as inflation rate and investment return rate
               </p>
               <div className="p-6 border-2 border-dashed border-gray-300 dark:border-gray-700 rounded-lg text-center">
-                <p className="text-gray-500 dark:text-gray-400">
-                  Coming soon
-                </p>
+                <p className="text-gray-500 dark:text-gray-400">Coming soon</p>
               </div>
             </div>
           </Card>

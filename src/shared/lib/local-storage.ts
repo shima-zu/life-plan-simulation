@@ -1,5 +1,5 @@
 export function getLocalStorage<T>(key: string): T | null {
-  if (typeof window === "undefined") return null;
+  if (typeof window === 'undefined') return null;
 
   try {
     const item = window.localStorage.getItem(key);
@@ -11,7 +11,7 @@ export function getLocalStorage<T>(key: string): T | null {
 }
 
 export function setLocalStorage<T>(key: string, value: T): void {
-  if (typeof window === "undefined") return;
+  if (typeof window === 'undefined') return;
 
   try {
     window.localStorage.setItem(key, JSON.stringify(value));
@@ -21,7 +21,7 @@ export function setLocalStorage<T>(key: string, value: T): void {
 }
 
 export function removeLocalStorage(key: string): void {
-  if (typeof window === "undefined") return;
+  if (typeof window === 'undefined') return;
 
   try {
     window.localStorage.removeItem(key);

@@ -1,4 +1,4 @@
-import { calculateAge } from "@/shared/lib/date-utils";
+import { calculateAge } from '@/shared/lib/date-utils';
 
 /**
  * Calculate current age from birth date

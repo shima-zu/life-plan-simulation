@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { useFamilyForm } from "../model/useFamilyForm";
-import { FamilyMemberCard } from "@/features/edit-family-member/ui/FamilyMemberCard";
+import { useFamilyForm } from '../model/useFamilyForm';
+import { FamilyMemberCard } from '@/features/edit-family-member/ui/FamilyMemberCard';
 
-export function FamilySettingsForm() {
+export function FamilySettingsForm(): JSX.Element {
   const { self, spouse, isLoading, handleSaveMember } = useFamilyForm();
 
   if (isLoading) {

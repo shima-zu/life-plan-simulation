@@ -1,17 +1,17 @@
-"use client";
+'use client';
 
-import { useFamilyData } from "@/entities/family/model/store";
-import type { FamilyMember } from "@/entities/family/model/types";
+import { useFamilyData } from '@/entities/family/model/store';
+import type { FamilyMember } from '@/entities/family/model/types';
 
-export function useFamilyForm() {
-  const {
-    isLoading,
-    addMember,
-    updateMember,
-    getMember,
-  } = useFamilyData();
+export function useFamilyForm(): {
+  self: FamilyMember | undefined;
+  spouse: FamilyMember | undefined;
+  isLoading: boolean;
+  handleSaveMember: (memberData: Omit<FamilyMember, 'id'>) => void;
+} {
+  const { isLoading, addMember, updateMember, getMember } = useFamilyData();
 
-  const handleSaveMember = (memberData: Omit<FamilyMember, "id">) => {
+  const handleSaveMember = (memberData: Omit<FamilyMember, 'id'>): void => {
     const existing = getMember(memberData.role);
 
     if (existing) {
@@ -22,8 +22,8 @@ export function useFamilyForm() {
   };
 
   return {
-    self: getMember("self"),
-    spouse: getMember("spouse"),
+    self: getMember('self'),
+    spouse: getMember('spouse'),
     isLoading,
     handleSaveMember,
   };

@@ -1,15 +1,15 @@
-"use client";
+'use client';
 
-import { useState, useEffect } from "react";
-import type { FamilyMember, FamilyRole } from "@/entities/family/model/types";
-import { Card } from "@/shared/ui/Card";
-import { Input } from "@/shared/ui/Input";
-import { AgeDisplay } from "@/entities/family/ui/AgeDisplay";
+import { useState, useEffect, JSX } from 'react';
+import type { FamilyMember, FamilyRole } from '@/entities/family/model/types';
+import { Card } from '@/shared/ui/Card';
+import { Input } from '@/shared/ui/Input';
+import { AgeDisplay } from '@/entities/family/ui/AgeDisplay';
 
 type FamilyMemberCardProps = {
   role: FamilyRole;
   member: FamilyMember | undefined;
-  onSave: (member: Omit<FamilyMember, "id">) => void;
+  onSave: (member: Omit<FamilyMember, 'id'>) => void;
   roleLabel: string;
 };
 
@@ -18,11 +18,11 @@ export function FamilyMemberCard({
   member,
   onSave,
   roleLabel,
-}: FamilyMemberCardProps) {
-  const [name, setName] = useState(member?.name || "");
-  const [birthDate, setBirthDate] = useState(member?.birthDate || "");
+}: FamilyMemberCardProps): JSX.Element {
+  const [name, setName] = useState(member?.name || '');
+  const [birthDate, setBirthDate] = useState(member?.birthDate || '');
   const [errors, setErrors] = useState<{ name?: string; birthDate?: string }>(
-    {}
+    {},
   );
 
   useEffect(() => {
@@ -30,8 +30,8 @@ export function FamilyMemberCard({
       setName(member.name);
       setBirthDate(member.birthDate);
     } else {
-      setName("");
-      setBirthDate("");
+      setName('');
+      setBirthDate('');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [member?.id, member?.name, member?.birthDate]);
@@ -40,16 +40,16 @@ export function FamilyMemberCard({
     const newErrors: { name?: string; birthDate?: string } = {};
 
     if (!name.trim()) {
-      newErrors.name = "Please enter a name";
+      newErrors.name = 'Please enter a name';
     }
 
     if (!birthDate) {
-      newErrors.birthDate = "Please enter a birth date";
+      newErrors.birthDate = 'Please enter a birth date';
     } else {
       const date = new Date(birthDate);
       const today = new Date();
       if (date > today) {
-        newErrors.birthDate = "Future dates are not allowed";
+        newErrors.birthDate = 'Future dates are not allowed';
       }
     }
 
@@ -57,7 +57,7 @@ export function FamilyMemberCard({
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSave = () => {
+  const handleSave = (): void => {
     if (!validate()) return;
 
     onSave({
@@ -85,7 +85,7 @@ export function FamilyMemberCard({
             value={birthDate}
             onChange={(e) => setBirthDate(e.target.value)}
             error={errors.birthDate}
-            max={new Date().toISOString().split("T")[0]}
+            max={new Date().toISOString().split('T')[0]}
           />
           {birthDate && <AgeDisplay birthDate={birthDate} className="mt-1" />}
         </div>

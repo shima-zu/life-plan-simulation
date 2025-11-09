@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-export function Header(): JSX.Element {
+export const Header = (): JSX.Element => {
   const pathname = usePathname();
 
   return (
@@ -33,4 +33,4 @@ export function Header(): JSX.Element {
       </div>
     </header>
   );
-}
+};

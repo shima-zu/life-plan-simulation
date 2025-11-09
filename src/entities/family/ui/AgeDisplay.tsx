@@ -1,5 +1,6 @@
 'use client';
 
+import { JSX } from 'react';
 import { getAge } from '../lib/age-calculator';
 
 type AgeDisplayProps = {
@@ -7,10 +8,10 @@ type AgeDisplayProps = {
   className?: string;
 };
 
-export function AgeDisplay({
+export const AgeDisplay = ({
   birthDate,
   className = '',
-}: AgeDisplayProps): JSX.Element | null {
+}: AgeDisplayProps): JSX.Element | null => {
   if (!birthDate) return null;
 
   const age = getAge(birthDate);
@@ -20,4 +21,4 @@ export function AgeDisplay({
       (Age {age})
     </span>
   );
-}
+};

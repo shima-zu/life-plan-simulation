@@ -1,7 +1,7 @@
 /**
  * Calculate current age from birth date
  */
-export function calculateAge(birthDate: string): number {
+export const calculateAge = (birthDate: string): number => {
   const today = new Date();
   const birth = new Date(birthDate);
 
@@ -13,21 +13,21 @@ export function calculateAge(birthDate: string): number {
   }
 
   return age;
-}
+};
 
 /**
  * Format date string to YYYY-MM-DD format
  */
-export function formatDate(date: Date): string {
+export const formatDate = (date: Date): string => {
   const year = date.getFullYear();
   const month = String(date.getMonth() + 1).padStart(2, '0');
   const day = String(date.getDate()).padStart(2, '0');
   return `${year}-${month}-${day}`;
-}
+};
 
 /**
  * Get today's date in YYYY-MM-DD format
  */
-export function getTodayString(): string {
+export const getTodayString = (): string => {
   return formatDate(new Date());
-}
+};

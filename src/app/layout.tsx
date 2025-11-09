@@ -18,11 +18,11 @@ export const metadata: Metadata = {
   description: 'A tool to simulate future asset formation and cash flow',
 };
 
-export default function RootLayout({
+const RootLayout = ({
   children,
 }: Readonly<{
   children: React.ReactNode;
-}>): JSX.Element {
+}>): JSX.Element => {
   return (
     <html lang="en">
       <body
@@ -33,4 +33,6 @@ export default function RootLayout({
       </body>
     </html>
   );
-}
+};
+
+export default RootLayout;

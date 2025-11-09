@@ -3,8 +3,9 @@
 import { Card } from '@/shared/ui/Card';
 import { useFamilyData } from '@/entities/family/model/store';
 import { FamilySettingsForm } from '@/widgets/family-settings-form/ui/FamilySettingsForm';
+import { ChildrenList } from '@/widgets/children-list/ui/ChildrenList';
 
-export function SettingsPage(): JSX.Element {
+export const SettingsPage = (): JSX.Element => {
   const { getMember } = useFamilyData();
   const self = getMember('self');
   const spouse = getMember('spouse');
@@ -25,7 +26,7 @@ export function SettingsPage(): JSX.Element {
         <div className="space-y-8">
           {/* Family Settings Section */}
           <Card title="Family Settings">
-            <div className="space-y-4">
+            <div className="space-y-6">
               <div className="flex items-center justify-between">
                 <p className="text-gray-600 dark:text-gray-400">
                   Set basic information for yourself and your spouse
@@ -50,6 +51,11 @@ export function SettingsPage(): JSX.Element {
                 )}
               </div>
               <FamilySettingsForm />
+
+              {/* Children List */}
+              <div className="pt-6 border-t border-gray-200 dark:border-gray-700">
+                <ChildrenList />
+              </div>
             </div>
           </Card>
 
@@ -92,4 +98,4 @@ export function SettingsPage(): JSX.Element {
       </div>
     </div>
   );
-}
+};

@@ -8,8 +8,10 @@
     "start": "next start",
     "lint": "eslint --fix 'src/**/*.{ts,tsx,js}'",
     "lint:check": "eslint 'src/**/*.{ts,tsx,js}'",
-    "format": "prettier --write 'src/**/*.{ts,tsx,js}'",
+    "format": "prettier --write --log-level=silent 'src/**/*.{ts,tsx,js}'",
     "format:check": "prettier --check 'src/**/*.{ts,tsx,js}'",
+    "test": "vitest run",
+    "test:watch": "vitest",
     "prepare": "husky"
   },
   "dependencies": {
@@ -21,11 +23,15 @@
     "@commitlint/cli": "^20.1.0",
     "@commitlint/config-conventional": "^20.0.0",
     "@tailwindcss/postcss": "^4",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.0",
+    "@testing-library/user-event": "^14.6.1",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "@typescript-eslint/eslint-plugin": "^8.46.3",
     "@typescript-eslint/parser": "^8.46.3",
+    "@vitejs/plugin-react": "^5.1.0",
     "eslint": "^9",
     "eslint-config-next": "16.0.1",
     "eslint-config-prettier": "^10.1.8",
@@ -33,9 +39,11 @@
     "eslint-plugin-jsx-a11y": "^6.10.2",
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^7.0.1",
+    "happy-dom": "^20.0.10",
     "husky": "^9.1.7",
     "prettier": "^3.6.2",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "^5",
+    "vitest": "^4.0.8"
   }
 }

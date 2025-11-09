@@ -3,7 +3,7 @@
 import { useFamilyForm } from '../model/useFamilyForm';
 import { FamilyMemberCard } from '@/features/edit-family-member/ui/FamilyMemberCard';
 
-export function FamilySettingsForm(): JSX.Element {
+export const FamilySettingsForm = (): JSX.Element => {
   const { self, spouse, isLoading, handleSaveMember } = useFamilyForm();
 
   if (isLoading) {
@@ -30,4 +30,4 @@ export function FamilySettingsForm(): JSX.Element {
       />
     </div>
   );
-}
+};

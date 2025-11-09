@@ -10,15 +10,16 @@ const DEFAULT_FAMILY_DATA: FamilyData = {
   updatedAt: new Date().toISOString(),
 };
 
-export function useFamilyData(): {
+export const useFamilyData = (): {
   familyData: FamilyData;
   isLoading: boolean;
   addMember: (member: Omit<FamilyMember, 'id'>) => void;
   updateMember: (id: string, updates: Partial<FamilyMember>) => void;
   removeMember: (id: string) => void;
   getMember: (role: FamilyMember['role']) => FamilyMember | undefined;
+  getChildren: () => FamilyMember[];
   saveFamilyData: (data: FamilyData) => void;
-} {
+} => {
   const [familyData, setFamilyData] = useState<FamilyData>(() => {
     const saved = getLocalStorage<FamilyData>(STORAGE_KEYS.FAMILY_DATA);
     return saved || DEFAULT_FAMILY_DATA;
@@ -85,6 +86,11 @@ export function useFamilyData(): {
     [familyData.members],
   );
 
+  // Get children
+  const getChildren = useCallback(() => {
+    return familyData.members.filter((member) => member.role === 'child');
+  }, [familyData.members]);
+
   return {
     familyData,
     isLoading,
@@ -92,6 +98,7 @@ export function useFamilyData(): {
     updateMember,
     removeMember,
     getMember,
+    getChildren,
     saveFamilyData,
   };
-}
+};

@@ -13,12 +13,12 @@ type FamilyMemberCardProps = {
   roleLabel: string;
 };
 
-export function FamilyMemberCard({
+export const FamilyMemberCard = ({
   role,
   member,
   onSave,
   roleLabel,
-}: FamilyMemberCardProps): JSX.Element {
+}: FamilyMemberCardProps): JSX.Element => {
   const [name, setName] = useState(member?.name || '');
   const [birthDate, setBirthDate] = useState(member?.birthDate || '');
   const [errors, setErrors] = useState<{ name?: string; birthDate?: string }>(
@@ -99,4 +99,4 @@ export function FamilyMemberCard({
       </div>
     </Card>
   );
-}
+};

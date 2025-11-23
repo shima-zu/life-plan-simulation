@@ -1,7 +1,6 @@
 'use client';
 
 import { useAuth } from '@/shared/lib/auth-context';
-import { Button } from './Button';
 
 export const LoginScreen = () => {
   const { loading, signInWithGoogle } = useAuth();
@@ -31,9 +30,12 @@ export const LoginScreen = () => {
         <p className="text-gray-600 dark:text-gray-400">
           Please sign in to continue
         </p>
-        <Button variant="primary" onClick={() => void handleSignIn()}>
+        <button
+          onClick={() => void handleSignIn()}
+          className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+        >
           Sign In with Google
-        </Button>
+        </button>
       </div>
     </div>
   );

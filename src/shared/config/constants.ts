@@ -1,1 +1,0 @@
-export const DEFAULT_LIFE_EXPECTANCY = 90;
